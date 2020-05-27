@@ -6,3 +6,5 @@ The different methods provided are based on what was thought in the course "Nume
 The purpose of this repo is to allow students with a better understanding of how different numerical methods work such as "bracketting" , "open method" and many more by providing an interactive and visual representation of the different iterative process.
 
 
+\frac{a}{B}
+
