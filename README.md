@@ -5,3 +5,8 @@ The different methods provided are based on what was thought in the course "Nume
 
 The purpose of this repo is to allow students with a better understanding of how different numerical methods work such as "bracketting" , "open method" and many more by providing an interactive and visual representation of the different iterative process.
 
+
+# To-Do
+1. Add Fixed-Point Iteration Method of finding roots
+3. Add Secant/modified Secant method and compared with false-position method
+2. Add visual showcase of taylor/maclaurin series for approximation
