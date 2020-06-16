@@ -22,14 +22,14 @@ x = np.linspace(0, 5 ,1000)
 # 	return f
 
 # Another example equation f(x) = 3cos x + 5sin x , for sine, cosine, exponential you have to put np. Like np.cos(x), np.exp(x)
-# def equationf(x):
-#     f = 3*(np.cos(x)) +5*(np.sin(x))
-#     return f
+def equationf(x):
+    f = 3*(np.cos(x)) +5*(np.sin(x))
+    return f
 
 #Another one for f(X) = 3x^2 - 25x -2
-def equationf(x):
-    f = np.exp(x)*np.sin(x) -1
-    return f
+# def equationf(x):
+#     f = np.exp(x)*np.sin(x) -1
+#     return f
 
 # def derivative(x):
 #     f = np.exp(x)*(np.sin(x) +np.cos(x))
@@ -45,9 +45,9 @@ def derivative(x):
 
 ###################
 # starting value
-back = 3.5
+back = 2
 initial = 4
-deltaval = 0.01
+deltaval = 0.5
 ######################3
 
 
@@ -58,7 +58,7 @@ fig= plt.figure(figsize=(8,8))
 # ax or axes in matlab term is the "plot" or "image" in the figure, so you can have a figure with 8 plots called axes (different from axis)
 ax = plt.subplot()
 
-ax.set_ylim([-20,20])
+ax.set_ylim([-10,10])
 # Spines in matlab term pretty much means like "edge line" or "axis lines" of the plot, so like the "top line, bottom like etc"
 #I made the top and right line invisible so we will only have 2 lines which will be the x and y axis
 # i set the position of the line to be at 0,0 cuz origin
@@ -72,18 +72,18 @@ ax.spines['right'].set_visible(False)
 # Initial Val
 
 initialval = initial
-deltax = deltaval*initialval
+backval = back
 
 #This time i want to plot the equation of like so Y = mX + C , where m is gradient and C is y-intercept
 
 # finding y1 so that i can use to find gradient
-y0 = equationf(initialval + deltax)
+y0 = equationf(backval)
 y1 = equationf(initialval)
 
-newval = initialval - (deltax*y1)/(y0-y1)
+newval = initial - (y1*(backval - initialval))/(y0-y1)
 
 # Finding the gradient here
-m = (y0-y1)/(deltax) # gradient
+m = (y0-y1)/(backval-initialval) # gradient
 
 # Finds the Y-intercept C based on the equation (y1-y2) = m(x1-x2)
 # So expanding that equation will get y1 -y2 = m*x1 - m*x2
@@ -100,26 +100,26 @@ C = -m*newval
 y = m*x + C # Equation of line
 
 # Main Equation Line
-line1, = plt.plot(x,equationf(x) ,label="Function")
+line1, = plt.plot(x,equationf(x) ,label="e^x*sin(x)-1")
 
 # This plots the equation of line between the 2 points,
 lineeqn, = plt.plot(x, y, label = "Equation of line")
 
 # This plots the XL and Xu point but show them with respect to on the curve so you can see it better
-initialpointoncurve,= plt.plot(initialval, equationf(initialval), label="Initial Point on Curve",marker='o', markerfacecolor='red', markersize=6)
-nextpointoncurve, = plt.plot(newval, equationf(newval), label="Next Point on Curve",marker='o', markerfacecolor='orange', markersize=6)
-smallchangeofpoint, = plt.plot(initialval+deltax, equationf(initialval+deltax), label="SmallChange on Curve",marker='o', markerfacecolor='blue', markersize=6)
-
+backpointoncurve, = plt.plot(backval, equationf(backval), label="Xi-1 on Curve",marker='o', markerfacecolor='green', markersize=6)
+initialpointoncurve,= plt.plot(initialval, equationf(initialval), label="Xi on Curve",marker='o', markerfacecolor='red', markersize=6)
+nextpointoncurve, = plt.plot(newval, equationf(newval), label="Xi+1 Point on Curve",marker='o', markerfacecolor='orange', markersize=6)
 
 
 # The usual 3 big boi points
-firstpoint,= plt.plot(initialval, 0, label="Initial Point",marker='o', markerfacecolor='red', markersize=6)
-nextpoint, = plt.plot(newval, 0, label="Next Point", marker='o', markerfacecolor='orange', markersize=6)
-smallchange, = plt.plot(initialval+deltax, 0, label="small change", marker='o', markerfacecolor='blue', markersize=6)
+backpoint,= plt.plot(backval, 0, label="Xi-1  Point",marker='o', markerfacecolor='green', markersize=6)
+firstpoint,= plt.plot(initialval, 0, label="Xi Point",marker='o', markerfacecolor='red', markersize=6)
+nextpoint, = plt.plot(newval, 0, label="Xi+1 Point", marker='o', markerfacecolor='orange', markersize=6)
+
 
 
 # Labels the axis, title and show the legend
-plt.title("Secant Modified Method")
+plt.title("Secant Method")
 plt.ylabel("Y axis")
 plt.xlabel("X axis")
 plt.legend()
@@ -135,7 +135,7 @@ axSlider1 = plt.axes([0.3,0.01,0.4, 0.05])
 
 # this line will turn the axe into an actual slider instead of a blank "plot" or image"
 # If you want to icnrease the total number of iteration available change valmax
-iterationSlider = Slider(axSlider1, "# of iterations", valmin = 1, valmax = 20, valinit = 1, valstep = 1)
+iterationSlider = Slider(axSlider1, "# of iterations", valmin = 1, valmax = 10, valinit = 1, valstep = 1)
 
 
 
@@ -147,39 +147,42 @@ iterationSlider = Slider(axSlider1, "# of iterations", valmin = 1, valmax = 20, 
 def newPoint(val):
     iteration = int(iterationSlider.val)
     initialval = initial
-    global deltaval
-    deltax = deltaval*initialval
+    backval = back
 
-    y0 = equationf(initialval + deltax)
+    y0 = equationf(backval)
     y1 = equationf(initialval)
-    newval = initialval - (deltax*y1)/(y0-y1)
-    m = (y0-y1)/(deltax)
+    newval = initial - (y1*(backval - initialval))/(y0-y1)
+    m = (y0-y1)/(backval-initialval)
     C = -m*newval
     y = m*x + C
     # Based on the # of iteration you choose, this will do the condition process n times
     # so if you choose 2 iterations, it does the calculation 2 times
     for i in range(1,iteration):
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print(f"{i}th iteration")
+        print(f"Xi is {initialval} and Xi-1 is {backval}")
+        print(f"Xi+1 is {newval}")
+        backval = initialval
         initialval = newval
-        deltax = deltaval*initialval
-        y0 = equationf(initialval + deltax)
+        y0 = equationf(backval)
         y1 = equationf(initialval)
-        newval = initialval - (deltax*y1)/(y0-y1)
-        m = (y0-y1)/(deltax)
+        newval = initialval - (y1*(backval - initialval))/(y0-y1)
+        m = (y0-y1)/(backval-initialval)
         C = -m*newval
         y = m*x + C
-        print(f"Initial val is {initialval} and next val is {newval} and delta is {deltax}")
-        print(f"F(x) is {y1} and F(x+1) is {y0}")
     # Once everything is done, update the points with the new x values 
     firstpoint.set_xdata(initialval)
     nextpoint.set_xdata(newval)
-    smallchange.set_xdata(initialval + deltax)
+    backpoint.set_xdata(backval)
     # Same thing update the x and y values of the new points
     initialpointoncurve.set_xdata(initialval)
     initialpointoncurve.set_ydata(equationf(initialval))
     nextpointoncurve.set_xdata(newval)
     nextpointoncurve.set_ydata(equationf(newval))
-    smallchangeofpoint.set_xdata(initialval + deltax)
-    smallchangeofpoint.set_ydata(equationf(initialval + deltax))
+    backpointoncurve.set_xdata(backval)
+    backpointoncurve.set_ydata((equationf(backval)))
+    
+    
     # Update the equation of line with the new equation
     lineeqn.set_ydata(y)
     # Redraw everything

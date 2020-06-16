@@ -13,7 +13,7 @@ sns.set(style="ticks")
 class graphical:
 	""" A graphical class which will contain all the different graphical methods of finding roots"""
 
-	def __init__(self, equation = 1 , numIterations = 10):
+	def __init__(self, equation = 1 , numIterations = 10, upper = 5, lower = 1 ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.upper = 2
 		self.lower = 1
@@ -305,6 +305,7 @@ class graphical:
 				if check>0:
 					# This print is for me to check the values to make sure everything makes sense
 					print(f"f(Xl)*f(Xr) = {check} > 0")
+					print("So Xl = Xr")
 					
 					# Applying the condition
 					xlower = xmid
@@ -314,7 +315,7 @@ class graphical:
 				# This one is if f(xl)*f(xu)  < 0, so Xu = Xr
 				elif check<0:
 					print(f"f(Xl)*f(Xr) = {check} < 0")
-					
+					print("So Xu = Xr")
 					# turning Xu = Xr      
 					xupper = xmid
 					# Calculate new value
