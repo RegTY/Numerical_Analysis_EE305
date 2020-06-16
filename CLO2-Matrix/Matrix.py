@@ -51,10 +51,10 @@ class matrix:
 
         print(f"Step3: Row2 * {l3.tolist()[0]} - Row 3 \n")
         matrixl = Matrix((matrixb0,matrixb1, matrixb2))
-
+        print(scipy.array(matrixl.tolist()))
         return matrixl, l1.tolist(),l2.tolist(),l3.tolist()
 
-    def uDecompost(self, matrixA):
+    def uDecompostSym(self, matrixA):
         """ Decomposes a Sympy Matrix to form a U matrix component"""
         matrixa0 = matrixA.row(0)
 
@@ -73,7 +73,8 @@ class matrix:
             print(f"Step 2: Row1 * {l2.tolist()[0]} - Row2 yielding: \n")
 
         matrixb = Matrix((matrixa0,matrixa1, matrixa2))
-        print(f"{matrixb.tolist()} \n")
+        self.step1 = matrixb
+        print(f"{scipy.array(matrixb.tolist())} \n")
 
         matrixb0 = matrixb.row(0)
         matrixb1 = matrixb.row(1)
@@ -82,7 +83,8 @@ class matrix:
 
         print(f"Step3: Row2 * {l3.tolist()[0]} - Row 3 \n")
         matrixl = Matrix((matrixb0,matrixb1, matrixb2))
-
+        print(scipy.array(matrixl.tolist()))
+        self.step2 = matrixl
         return matrixl, l1.tolist(),l2.tolist(),l3.tolist()
 
 
@@ -91,7 +93,7 @@ class matrix:
         print("Gauss Jordan Elimination")
         x1,x2 ,x3 = symbols('x1, x2, x3')
         
-        finalMatrix = self.uDecompost(self.matrixA)[0]
+        finalMatrix = self.uDecompostSym(Matrix(self.matrixdata))[0]
         answers = linsolve(Matrix(self.matrixdata), (x1,x2,x3))
         print(scipy.array(finalMatrix.tolist()))
         print("\nAnd the roots are:")
@@ -103,12 +105,9 @@ class matrix:
         print("Gauss Jordan Elimination")
         x1,x2 ,x3 = symbols('x1, x2, x3')
         
-        finalMatrix = self.uDecompostSym(self.matrixA)[0]
-        answers = linsolve(Matrix(self.matrixdata), (x1,x2,x3))
-        print(finalMatrix.tolist())
+        self.finalMatrix = self.uDecompostSym(Matrix(self.matrixdata))[0]
         print("\nAnd the roots are:")
-        print(answers)
-        return 0
+        return linsolve(Matrix(self.matrixdata), (x1,x2,x3))
 
     
 
