@@ -341,7 +341,7 @@ class graphical1:
 class graphical12:
 	""" A graphical class which will contain all the different graphical methods of finding roots"""
 
-	def __init__(self, equation = 1 , numIterations = 10, back = 0, initial = 1, deltax = None ):
+	def __init__(self, equation = 1 , numIterations = 10, back =1, initial = 4, deltax = 0.01 ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.back = back
 		self.initial = initial
@@ -351,7 +351,7 @@ class graphical12:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = np.exp(-x) - x
+		f = np.exp(x)*np.sin(x)-1
 		return f
 	def derivative(self,x):
 		f =  -np.exp(-x) - 1
@@ -677,16 +677,16 @@ class graphical12:
 
 		# Initial Val
 
-		initialval = initial
-		deltaval = deltax*initialval
+		initialval = self.initial
+		deltaval = self.deltax
 
 		#This time i want to plot the equation of like so Y = mX + C , where m is gradient and C is y-intercept
 
 		# finding y1 so that i can use to find gradient
-		y0 = equationf(initialval + deltaval)
-		y1 = equationf(initialval)
+		y0 = self.equationf(initialval + deltaval*initialval)
+		y1 = self.equationf(initialval)
 
-		newval = initial - (deltaval*initialval*y1)/(y0-y1)
+		newval = self.initial - (deltaval*initialval*y1)/(y0-y1)
 
 		# Finding the gradient here
 		m = (y0-y1)/(deltaval) # gradient
@@ -703,17 +703,17 @@ class graphical12:
 
 		C = -m*newval
 
-		y = m*x + C # Equation of line
+		y = m*self.x + C # Equation of line
 
 		# Main Equation Line
-		line1, = plt.plot(x,equationf(x) ,label="Function")
+		line1, = plt.plot(self.x,self.equationf(self.x) ,label="Function")
 
 		# This plots the equation of line between the 2 points,
-		lineeqn, = plt.plot(x, y, label = "Equation of line")
+		lineeqn, = plt.plot(self.x, y, label = "Equation of line")
 
 		# This plots the XL and Xu point but show them with respect to on the curve so you can see it better
-		initialpointoncurve,= plt.plot(initialval, equationf(initialval), label="Initial Point on Curve",marker='o', markerfacecolor='red', markersize=6)
-		nextpointoncurve, = plt.plot(newval, equationf(newval), label="Next Point on Curve",marker='o', markerfacecolor='orange', markersize=6)
+		initialpointoncurve,= plt.plot(initialval, self.equationf(initialval), label="Initial Point on Curve",marker='o', markerfacecolor='red', markersize=6)
+		nextpointoncurve, = plt.plot(newval, self.equationf(newval), label="Next Point on Curve",marker='o', markerfacecolor='orange', markersize=6)
 
 		# The usual 3 big boi points
 		firstpoint,= plt.plot(initialval, 0, label="Initial Point",marker='o', markerfacecolor='red', markersize=6)
@@ -749,33 +749,36 @@ class graphical12:
 
 		def newPoint(val):
 			iteration = int(iterationSlider.val)
-			initialval = initial
-			deltaval = deltax*initialval
+			initialval = self.initial
+			deltaval = self.deltax
 
-			y0 = equationf(initialval + deltaval)
-			y1 = equationf(initialval)
-			newval = initial - (deltaval*initialval*y1)/(y0-y1)
+			y0 = self.equationf(initialval + deltaval*initialval)
+			y1 = self.equationf(initialval)
+			newval = self.initial - (deltaval*initialval*y1)/(y0-y1)
+			print(f" The x0 value is {initialval}, f(x0) = {y1}, f(x1) = {y0}, newval = {newval}")
 			m = (y0-y1)/(deltaval)
 			C = -m*newval
-			y = m*x + C
+			y = m*self.x + C
 			# Based on the # of iteration you choose, this will do the condition process n times
 			# so if you choose 2 iterations, it does the calculation 2 times
 			for i in range(1,iteration):
 				initialval = newval
-				y0 = equationf(initialval + deltaval)
-				y1 = equationf(initialval)
-				newval = initial - (deltaval*initialval*y1)/(y0-y1)
+				y0 = self.equationf(initialval + deltaval*initialval)
+				y1 = self.equationf(initialval)
+				newval = self.initial - (deltaval*initialval*y1)/(y0-y1)
+				print(f" The x0 value is {initialval}, f(x0) = {y1}, f(x1) = {initialval + deltaval*initialval}{y0}, newval = {newval} and test = {deltaval*initialval}")
 				m = (y0-y1)/(deltaval)
 				C = -m*newval
-				y = m*x + C
+				y = m*self.x + C
 			# Once everything is done, update the points with the new x values 
+			print(f" The X value is {newval}")
 			firstpoint.set_xdata(initialval)
 			nextpoint.set_xdata(newval)
 			# Same thing update the x and y values of the new points
 			initialpointoncurve.set_xdata(initialval)
-			initialpointoncurve.set_ydata(equationf(initialval))
+			initialpointoncurve.set_ydata(self.equationf(initialval))
 			nextpointoncurve.set_xdata(newval)
-			nextpointoncurve.set_ydata(equationf(newval))
+			nextpointoncurve.set_ydata(self.equationf(newval))
 			
 			# Update the equation of line with the new equation
 			lineeqn.set_ydata(y)
@@ -801,7 +804,7 @@ class graphical12:
 if __name__ == "__main__":
 	
 		data = graphical12()
-		data.Secant()
+		data.modifiedSecant()
 		# print(""" 
 		# 1: False Position
 		# 2: Bracketing
