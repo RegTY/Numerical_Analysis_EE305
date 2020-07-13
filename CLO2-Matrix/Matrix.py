@@ -87,7 +87,9 @@ class matrix:
         matrixd = linalg.solve(np.array(matrixl.tolist()).astype(np.float64), test.matrixb)
         ans= linalg.solve(np.array(matrixu.tolist()).astype(np.float64), matrixd)
         return ans
-        
+    
+    def LUInverse(self):
+        """ Shows a step by step solution on how LU Decomposition elimination to determine the inverse of a matrix is done"""
 
 
 if __name__ == "__main__":

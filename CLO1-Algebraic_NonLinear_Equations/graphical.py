@@ -23,7 +23,7 @@ class graphical1:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = np.exp(-x) - x
+		f = np.log10(x) - np.cos(x) -1
 		return f	
 	# def equationf2(x):
 	# 	""" The F(x) function to which the calculation will be operated under"""
@@ -351,10 +351,10 @@ class graphical12:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = np.exp(x)*np.sin(x)-1
+		f = np.log10(x) - np.cos(x) -1
 		return f
 	def derivative(self,x):
-		f =  -np.exp(-x) - 1
+		f =  1/(np.log(10)*x) + np.sin(x)
 		return f	
 	# def equationf2(x):
 	# 	""" The F(x) function to which the calculation will be operated under"""
@@ -480,8 +480,10 @@ class graphical12:
 				nextval = initialval - y1/m
 				C = -m*nextval
 				y = m*self.x + C 
+				print(f"X value is {initialval}, f(x) = {y1} F'(x) = {m} error = {(nextval - initialval)/nextval * 100}")
 			# Once everything is done, update the points with the new x values 
-			print(f"X value is {initialval}")
+			print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			print(f"X value is {initialval}, f(x) = {y1} F'(x) = {m}")
 			firstpoint.set_xdata(initialval)
 			nextpoint.set_xdata(nextval)
 
@@ -804,7 +806,7 @@ class graphical12:
 if __name__ == "__main__":
 	
 		data = graphical12()
-		data.modifiedSecant()
+		data.newtonRaphson()
 		# print(""" 
 		# 1: False Position
 		# 2: Bracketing
