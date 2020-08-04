@@ -19,10 +19,10 @@ class matrix:
             eqn1 = eqn2
             eqn2 = temp
 
-        self.matrixdata = scipy.array([eqn1,eqn2,eqn3])
+        self.matrixdata = np.array([eqn1,eqn2,eqn3])
 
         self.matrixA = Matrix((self.matrixdata[0][0:3],self.matrixdata[1][0:3],self.matrixdata[2][0:3]))
-        self.matrixa = scipy.array(self.matrixA.tolist())
+        self.matrixa = np.array(self.matrixA.tolist())
 
         self.matrixb =np.array([eqn1[-1],eqn2[-1],eqn3[-1]]) 
         self.matrixB =Matrix(self.matrixb)

@@ -341,7 +341,7 @@ class graphical1:
 class graphical12:
 	""" A graphical class which will contain all the different graphical methods of finding roots"""
 
-	def __init__(self, equation = 1 , numIterations = 10, back =1, initial = 4, deltax = 0.01 ):
+	def __init__(self, equation = 1 , numIterations = 10, back =1, initial = 5, deltax = 0.01 ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.back = back
 		self.initial = initial
@@ -351,7 +351,7 @@ class graphical12:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = np.log10(x) - np.cos(x) -1
+		f = x*np.sin(x) + np.cos(x)
 		return f
 	def derivative(self,x):
 		f =  1/(np.log(10)*x) + np.sin(x)
@@ -595,7 +595,7 @@ class graphical12:
 
 		# this line will turn the axe into an actual slider instead of a blank "plot" or image"
 		# If you want to icnrease the total number of iteration available change valmax
-		iterationSlider = Slider(axSlider1, "# of iterations", valmin = 1, valmax = 10, valinit = 1, valstep = 1)
+		iterationSlider = Slider(axSlider1, "# of iterations", valmin = 1, valmax = 20, valinit = 1, valstep = 1)
 
 
 
@@ -806,7 +806,7 @@ class graphical12:
 if __name__ == "__main__":
 	
 		data = graphical12()
-		data.newtonRaphson()
+		data.Secant()
 		# print(""" 
 		# 1: False Position
 		# 2: Bracketing
