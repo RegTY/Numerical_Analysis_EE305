@@ -7,6 +7,6 @@ The purpose of this repo is to allow students with a better understanding of how
 
 
 # To-Do
-1. Add Fixed-Point Iteration Method of finding roots
-3. Add Secant/modified Secant method and compared with false-position method
+3 Visualize the method for Huen and Euler's Method
+4. Include rest of the regression models learnt
 2. Add visual showcase of taylor/maclaurin series for approximation
