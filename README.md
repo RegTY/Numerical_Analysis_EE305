@@ -7,6 +7,6 @@ The purpose of this repo is to allow students with a better understanding of how
 
 
 # To-Do
-3 Visualize the method for Huen and Euler's Method
-4. Include rest of the regression models learnt
-2. Add visual showcase of taylor/maclaurin series for approximation
+1. Visualize the method for Huen and Euler's Method
+2. Include rest of the regression models learnt
+3. Add visual showcase of taylor/maclaurin series for approximation
