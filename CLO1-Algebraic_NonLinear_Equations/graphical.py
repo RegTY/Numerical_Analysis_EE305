@@ -13,7 +13,7 @@ sns.set(style="ticks")
 class graphical1:
 	""" A graphical class which will contain all the different graphical methods of finding roots"""
 
-	def __init__(self, equation = 1 , numIterations = 10, upper = 5, lower = 1, deltax = None ):
+	def __init__(self, numIterations = 10, upper = 5, lower = 1, deltax = None ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.upper = upper
 		self.lower = lower

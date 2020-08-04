@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 sns.set(style="ticks")
 
 
-class ODE:
-	""" A class containing all the numerical methods for solving ODES"""
+class Integral:
+	""" A class containing all the numerical methods for solving Integrals"""
 
 	def __init__(self, numIterations=4, upper=0.8, lower=0):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
@@ -121,9 +121,8 @@ class ODE:
 		return  I2
 
 
-
 if __name__ == "__main__":
-	 data = ODE()
+	 data = Integral()
 	 data.equation(5)
 	 a = 0
 	 b = 0.8
