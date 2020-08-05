@@ -109,9 +109,9 @@ class matrix:
     def lDecompost(self,l1,l2,l3):
         """ Decomposes a Sympy Matrix to form a L matrix component"""
         matrixl = np.identity(3)
-        matrixl[1][0] = l1[0][0]
-        matrixl[2][0] = l2[0][0]
-        matrixl[2][1] = l3[0][0]
+        matrixl[1][0] = l1
+        matrixl[2][0] = l2
+        matrixl[2][1] = l3
         return Matrix(matrixl)
 
     def gaussjordan(self):
@@ -128,7 +128,7 @@ class matrix:
     def LUDecomposition(self):
         """ Shows a step by step solution on how LU Decomposition elimination is done"""
 
-        matrixu, l1,l2,l3 = test.uDecompost(test.matrixA)
+        matrixu, l1,l2,l3 = test.uDecompost(test.matrixa)
         matrixl = test.lDecompost(l1,l2,l3)
         matrixd = linalg.solve(np.array(matrixl.tolist()).astype(np.float64), test.matrixb)
         ans= linalg.solve(np.array(matrixu.tolist()).astype(np.float64), matrixd)
@@ -222,6 +222,6 @@ class matrix:
 
 if __name__ == "__main__":
     test = matrix([0, 8, 2, -7], [3, 5, 2, 8],[6, 2, 8 , 26])
-    test.uDecompost(test.matrixa)
-    test.gaussjordan()
+    test.LUDecomposition()
+    #test.gaussjordan()
     #print(Matrix(linalg.inv(test.matrixa.astype(np.float64))))
