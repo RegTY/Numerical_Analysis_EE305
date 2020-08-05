@@ -13,7 +13,6 @@ class matrix:
             which will be separated later on in the code to form Matrix A and matrix B 
             (Note capital letters in the matrix represents matrix representation in Sympy notation where as non capitalize in scipy/numpy)
             """
-        np.set_printoptions(precision=4, suppress=True)
         if eqn1[0] == 0:
             temp = eqn1
             eqn1 = eqn2
@@ -36,42 +35,77 @@ class matrix:
         x3 = (test.matrixb[2] - test.matrixa[2][0] * x1 -  test.matrixa[2][1] * x2)/test.matrixa[2][2]
         return x3
 
-    def uDecompost(self, matrixA):
+    # def uDecompost(self, matrixA):
+    #     """ Decomposes a Sympy Matrix to form a U matrix component"""
+    #     matrixa0 = matrixA.row(0)
+    #     print("U DECOMPOSITION")
+    #     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    #     if(np.array(matrixA.row(0).col(0).tolist()).astype(np.float64) == 0):
+    #         matrixa1 = matrixA.row(1)
+    #         matrixa2 = matrixA.row(2)
+    #         l1 = Matrix([0])
+    #         l2 = Matrix([0])
+
+    #     else:
+    #         matrixa1 = matrixA.row(1) - matrixA.row(1).col(0)/matrixA.row(0).col(0)*matrixA.row(0)
+    #         matrixa2 =matrixA.row(2) - matrixA.row(2).col(0)/matrixA.row(0).col(0)*matrixA.row(0)
+    #         l1 = Matrix(matrixA.row(1).col(0)/matrixA.row(0).col(0))
+    #         l2 = Matrix(matrixA.row(2).col(0)/matrixA.row(0).col(0))
+    #         print(f"Step 1: -Row1 * {l1.tolist()[0]} + Row2")
+    #         print(f"Step 2: -Row1 * {l2.tolist()[0]} + Row2 yielding: \n")
+
+    #     matrixb = Matrix((matrixa0,matrixa1, matrixa2))
+    #     self.step1 = matrixb
+    #     print(f"{scipy.array(matrixb.tolist())} \n")
+
+    #     matrixb0 = matrixb.row(0)
+    #     matrixb1 = matrixb.row(1)
+    #     matrixb2 = matrixb.row(2) - matrixb.row(2).col(1)/matrixb.row(1).col(1)*matrixb.row(1)
+    #     l3 = matrixb.row(2).col(1)/matrixb.row(1).col(1)
+
+    #     print(f"Step3: -Row2 * {l3.tolist()[0]} + Row 3 \n")
+    #     matrixl = Matrix((matrixb0,matrixb1, matrixb2))
+    #     self.step2 = matrixl
+    #     print(scipy.array(matrixl.tolist()))
+    #     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    #     return matrixl, l1.tolist(),l2.tolist(),l3.tolist()
+    
+    def uDecompost(self, matrixa):
         """ Decomposes a Sympy Matrix to form a U matrix component"""
-        matrixa0 = matrixA.row(0)
+        matrixa0 = matrixa[0]
         print("U DECOMPOSITION")
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        if(np.array(matrixA.row(0).col(0).tolist()).astype(np.float64) == 0):
-            matrixa1 = matrixA.row(1)
-            matrixa2 = matrixA.row(2)
+        if( matrixa[0][0] == 0):
+            matrixa1 = matrixa[1]
+            matrixa2 = matrixa[1]
             l1 = Matrix([0])
             l2 = Matrix([0])
 
         else:
-            matrixa1 = matrixA.row(1) - matrixA.row(1).col(0)/matrixA.row(0).col(0)*matrixA.row(0)
-            matrixa2 =matrixA.row(2) - matrixA.row(2).col(0)/matrixA.row(0).col(0)*matrixA.row(0)
-            l1 = Matrix(matrixA.row(1).col(0)/matrixA.row(0).col(0))
-            l2 = Matrix(matrixA.row(2).col(0)/matrixA.row(0).col(0))
-            print(f"Step 1: -Row1 * {l1.tolist()[0]} + Row2")
-            print(f"Step 2: -Row1 * {l2.tolist()[0]} + Row2 yielding: \n")
+            matrixa1 = matrixa[1] - matrixa[1][0]/matrixa[0][0]*matrixa[0]
+            matrixa2 =matrixa[2] - matrixa[2][0]/matrixa[0][0]*matrixa[0]
+            l1 = matrixa[1][0]/matrixa[0][0]
+            l2 = matrixa[2][0]/matrixa[0][0]
+            print(f"Step 1: -Row1 * {l1} + Row2")
+            print(f"Step 2: -Row1 * {l2} + Row2 yielding: \n")
 
-        matrixb = Matrix((matrixa0,matrixa1, matrixa2))
-        self.step1 = matrixb
-        print(f"{scipy.array(matrixb.tolist())} \n")
+        matrixB = Matrix((matrixa0,matrixa1, matrixa2))
+        self.step1 = matrixB
+        matrixb = np.array(matrixB.tolist())
+        print(f"{np.array(matrixB.tolist())} \n")
 
-        matrixb0 = matrixb.row(0)
-        matrixb1 = matrixb.row(1)
-        matrixb2 = matrixb.row(2) - matrixb.row(2).col(1)/matrixb.row(1).col(1)*matrixb.row(1)
-        l3 = matrixb.row(2).col(1)/matrixb.row(1).col(1)
+        matrixb0 = matrixb[0]
+        matrixb1 = matrixb[1]
+        matrixb2 = matrixb[2] - matrixb[2][1]/matrixb[1][1]*matrixb[1]
+        l3 = matrixb[2][1]/matrixb[1][1]
 
-        print(f"Step3: -Row2 * {l3.tolist()[0]} + Row 3 \n")
+        print(f"Step3: -Row2 * {l3} + Row 3 \n")
         matrixl = Matrix((matrixb0,matrixb1, matrixb2))
         self.step2 = matrixl
-        print(scipy.array(matrixl.tolist()))
+        print(np.array(matrixl.tolist()))
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        return matrixl, l1.tolist(),l2.tolist(),l3.tolist()
-
-
+        return matrixl, l1,l2,l3
+    
     def lDecompost(self,l1,l2,l3):
         """ Decomposes a Sympy Matrix to form a L matrix component"""
         matrixl = np.identity(3)
@@ -85,7 +119,7 @@ class matrix:
         print("Gauss Jordan Elimination")
         x1,x2 ,x3 = symbols('x1, x2, x3')
         
-        self.finalMatrix = self.uDecompost(Matrix(self.matrixdata))[0]
+        self.finalMatrix = self.uDecompost(self.matrixdata)
         print("\nAnd the roots are:")
         return linsolve(Matrix(self.matrixdata), (x1,x2,x3))
 
@@ -188,5 +222,6 @@ class matrix:
 
 if __name__ == "__main__":
     test = matrix([0, 8, 2, -7], [3, 5, 2, 8],[6, 2, 8 , 26])
-    test.Jacobi_Iterative(0,0,0,3)
+    test.uDecompost(test.matrixa)
+    test.gaussjordan()
     #print(Matrix(linalg.inv(test.matrixa.astype(np.float64))))
