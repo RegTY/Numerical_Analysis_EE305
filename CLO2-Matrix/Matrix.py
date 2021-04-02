@@ -4,6 +4,8 @@ import pprint
 from scipy import linalg
 #from sympy import Matrix
 from sympy import *
+
+
 class matrix:
     """ A matrix class which will contain all the different numerical methods such as ccramer's rule of LU Decomposition of solving 
         system of linear equations."""
@@ -87,7 +89,7 @@ class matrix:
             l1 = matrixa[1][0]/matrixa[0][0]
             l2 = matrixa[2][0]/matrixa[0][0]
             print(f"Step 1: -Row1 * {l1} + Row2")
-            print(f"Step 2: -Row1 * {l2} + Row2 yielding: \n")
+            print(f"Step 2: -Row1 * {l2} + Row3 yielding: \n")
 
         matrixB = Matrix((matrixa0,matrixa1, matrixa2))
         self.step1 = matrixB

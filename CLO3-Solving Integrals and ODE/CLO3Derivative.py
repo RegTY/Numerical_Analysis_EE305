@@ -26,7 +26,7 @@ class ODE:
 		#fig, ax = plt.subplots()
 	
 	def equation(self , x,y = 0):
-		f =4*np.exp(0.8*x) - 0.5*y
+		f =y - 2*x/y
 		return f
 	
 	def euler(self):
@@ -62,7 +62,7 @@ class ODE:
 			i = 0
 			yi = yi1
 			xi += self.h	
-			yi1 = yi + (self.equation(xi,yi) + self.equation(xi + self.h,yi))/2*self.h
+			ypredict = yi + self.equation(xi,yi)*self.h
 			j += self.h
 			# xi += self.h
 			# yi = yi1
@@ -97,6 +97,7 @@ class ODE:
 			k2 = self.equation(xi + 1/2*h, yi + 1/2*k1*h)
 			k3 = self.equation(xi+h, yi - k1*h +2*k2*h)
 			y =  1/6*(k1 + 4*k2 + k3)
+			
 			return y
 		i = 0
 		while i < self.upper:
@@ -112,11 +113,14 @@ class ODE:
 		yi = self.yi
 		h = self.h
 		def incrementalfunction(xi,yi,h):
+			#print(xi)
 			k1 = self.equation(xi,yi)
 			k2 = self.equation(xi + 1/2*h, yi + 1/2*k1*h)
 			k3 = self.equation(xi + 1/2*h, yi + 1/2*k2*h)
 			k4 = self.equation(xi+h, yi + k3*h)
 			y =  1/6*(k1 + 2*k2 + 2*k3 + k4)
+			print(y)
+			print(f" k1 {k1}, k2 {k2}, k3 {k3}, k4 {k4}")
 			return y
 		i = 0
 		while i < self.upper:
@@ -151,11 +155,8 @@ class ODE:
 			i += self.h
 		return yi1
 if __name__ == "__main__":
-	 data = ODE( upper=0.5, lower=0, stepsize = 0.5 , xinitial = 0, yinitial = 2)
-	 print(data.RK2())
-	 print(data.RK3())
-	 print(data.RK4())
-	 print(data.RK5())
+	 data = ODE(upper = 0.2 , stepsize = 0.1 , xinitial = 0, yinitial = 1)
+	 print(data.rk3())
 	 #print(data.heun())
 
 

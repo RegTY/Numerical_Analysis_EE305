@@ -13,7 +13,7 @@ x = np.linspace(0, 5 ,1000)
 # This is a function to compute your equation 
 #like f(x) = x^2 , so this equation used takes in x and outputs f based on the equation of the parachutist
 
-# def equationf(x):
+# def equationf(x):con
 # 	g = 9.81
 # 	m = 68.1
 # 	t = 10

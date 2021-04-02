@@ -10,10 +10,12 @@ import matplotlib.pyplot as plt
 sns.set(style="ticks")
 
 
+
+
 class graphical1:
 	""" A graphical class which will contain all the different graphical methods of finding roots"""
 
-	def __init__(self, numIterations = 10, upper = 5, lower = 1, deltax = None ):
+	def __init__(self, numIterations = 4, upper = 5, lower = 4, deltax = None ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.upper = upper
 		self.lower = lower
@@ -23,7 +25,7 @@ class graphical1:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = np.log10(x) - np.cos(x) -1
+		f = -0.12*x**2 + 0.62*x + 0.67
 		return f	
 	# def equationf2(x):
 	# 	""" The F(x) function to which the calculation will be operated under"""
@@ -61,6 +63,7 @@ class graphical1:
 
 		xlower = self.lower
 		xupper = self.upper
+
 
 		#This time i want to plot the equation of like so Y = mX + C , where m is gradient and C is y-intercept
 
@@ -144,7 +147,7 @@ class graphical1:
 			C = -m*xupnew + y2new
 			y = m*self.x + C # Equation of line
 			
-			
+        
 			# Based on the # of iteration you choose, this will do the condition process n times
 			# so if you choose 2 iterations, it does the calculation 2 times
 			for i in range(1,iteration):
@@ -339,9 +342,9 @@ class graphical1:
 		plt.show()
 
 class graphical12:
-	""" A graphical class which will contain all the different graphical methods of finding roots"""
+	""" """
 
-	def __init__(self, equation = 1 , numIterations = 10, back =1, initial = 5, deltax = 0.01 ):
+	def __init__(self, equation = 1 , numIterations = 10, back =0, initial = 0, deltax = 0.01 ):
 		""" Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
 		self.back = back
 		self.initial = initial
@@ -351,10 +354,10 @@ class graphical12:
 
 	def equationf(self, x):
 		""" The F(x) function to which the calculation will be operated under"""
-		f = x*np.sin(x) + np.cos(x)
-		return f
+		f = -0.04*x**3 + 0.31*x**2 + 0.67*x - 0.85
+		return f	
 	def derivative(self,x):
-		f =  1/(np.log(10)*x) + np.sin(x)
+		f =  -0.12*x**2 + 0.62*x + 0.67
 		return f	
 	# def equationf2(x):
 	# 	""" The F(x) function to which the calculation will be operated under"""
@@ -804,9 +807,8 @@ class graphical12:
 
 
 if __name__ == "__main__":
-	
 		data = graphical12()
-		data.Secant()
+		data.newtonRaphson()
 		# print(""" 
 		# 1: False Position
 		# 2: Bracketing
