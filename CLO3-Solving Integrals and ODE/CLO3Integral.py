@@ -1,20 +1,46 @@
-import matplotlib
-import sympy as sp
-from matplotlib.widgets import Slider, Button
-import seaborn as sns
 import numpy as np
-import scipy
 import pandas as pd
-import matplotlib.pyplot as plt
 
 
 
 class Integral:
-    """ A class containing all the numerical methods for solving Integrals"""
+    """
+    
+    A class containing all the numerical methods for solving Integrals.
+    
+    An example of how to use this in code is first write a function for your equation
+    For example
+    def equation1(x):
+        y = x**2 + -3*x
+        return y
+    
+    From the equation you then initialize the class for the ODE
+    
+    test = ODE(equation1)
+    
+    you can then call any of the functions available for example
+    test.simpson38(5,6,10)
+    
+    """
 
     def __init__(self, equation = callable , *args , **kwargs):
-        
-        """ Initializes the class, by default the equation used will be 3Cos  x + 5Cos x with 10 iterations """
+        """
+        Integral library containing variables numerical tool for integrations.
+
+        Parameters
+        ----------
+        equation : FUNCTION, optional
+             a function which conntains equations. The default is callable.
+        *args : TYPE
+            DESCRIPTION.
+        **kwargs : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         self.equation =equation
 
 #     
